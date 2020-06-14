@@ -1,3 +1,19 @@
+# Dummy color inits
+# The linter cannot find them fsr,
+# so I'm defining them manually,
+# they will be shadowed by the
+# imported colors anyway
+
+GREEN = 1
+PURPLE = 2
+BLUE = 3
+ORANGE = 4
+WHITE = 5
+GREY = 6
+YELLOW = 7
+RED = 8
+
+import copy
 from manimlib.imports import *
 import math
 
@@ -477,35 +493,324 @@ class Graphing(GraphScene):
             FadeOut(eq5_2_line),
         )
 
-        self.wait(5)
-
-        dots_col_2 = [
-            Dot(self.coords_to_point(6, 6), color=WHITE, radius=0.15),
-            # Dot(self.coords_to_point(2, 9), color=YELLOW, radius=0.15)
-        ]
-
-        self.play(
-            *[
-                GrowFromCenter(dot) for dot in dots_col_2
-            ]
-        )
-
         self.wait(2)
 
         r1_1 = TextMobject("$R1: (1.5, 4.3, 6.5)_T$ $I(4.5, 6.9, 10.5)_T $ →")
-        r1_2 = TextMobject("→ ${(1, 4/17), (2, 9/17), (3, 4/17)}$")
+        r1_2 = TextMobject("→ ${(1, 0.24), (2, 0.53), (3, 0.25)}$")
 
         r1_1.next_to(equation_1, DOWN)
         r1_1.shift(UP)
         r1_2.next_to(r1_1, DOWN)
+        r1_2.shift(UP * 0.3)
 
         r1_1.scale(0.5)
         r1_2.scale(0.5)
 
-        self.play(ReplacementTransform(equation_1_1_2, r1_1), ReplacementTransform(equation_1_2_2, r1_2))
+        self.play(
+            ReplacementTransform(equation_1_1_2, r1_1),
+            ReplacementTransform(equation_1_2_2, r1_2),
+            ShowCreation(rect_1)
+        )
+
+        self.wait(3)
+
+        r2_1 = TextMobject("$R2: (4.5, 6.8, 10.5)_T$ $I(6.5, 7.8, 10.5)_T$ →")
+        r2_2 = TextMobject("→ ${(1, 0), (2, 0.3), (3, 0.7)}$")
+
+        r2_1.scale(0.5)
+        r2_2.scale(0.5)
+
+        r2_1.set_color(GREEN)
+        r2_2.set_color(GREEN) 
+
+
+        r2_1.next_to(r1_2, DOWN)
+        # r2_2.shift(DOWN)
+        r2_2.next_to(r2_1, DOWN)
+
+        self.play(
+            FadeOut(rect_1),
+            ReplacementTransform(equation_2_1, r2_1),
+            ReplacementTransform(equation_2_2, r2_2),
+            ShowCreation(rect_2)
+        )
+
+        self.wait(3)
+
+        r3_1 = TextMobject("$R3: (4.5, 6.3, 8.5)_T$ $I(5.5, 6.4, 7.5)_T$ →")
+        r3_2 = TextMobject("→ ${(1, 0.14), (2, 0.14), (3, 0.71)}$")
+
+        r3_1.scale(0.5)
+        r3_2.scale(0.5)
+
+        r3_1.set_color(PURPLE)
+        r3_2.set_color(PURPLE) 
+
+
+        r3_1.next_to(r2_2, DOWN)
+        # r2_2.shift(DOWN)
+        r3_2.next_to(r3_1, DOWN)
+
+        self.play(
+            FadeOut(rect_2),
+            ReplacementTransform(equation_3_1, r3_1),
+            ReplacementTransform(equation_3_2, r3_2),
+            ShowCreation(rect_3)
+        )
+
+        self.wait(3)
+
+        r4_1 = TextMobject("$R4: (5.5, 8.1, 10.5)_T$ $I(3.5, 5.3, 7.5)_T$ →")
+        r4_2 = TextMobject("→ ${(1, 0.23), (2, 0.077), (3, 0.69)}$")
+
+        r4_1.scale(0.5)
+        r4_2.scale(0.5)
+
+        r4_1.set_color(ORANGE)
+        r4_2.set_color(ORANGE) 
+
+        r4_1.next_to(r3_2, DOWN)
+        # r2_2.shift(DOWN)
+        r4_2.next_to(r4_1, DOWN)
+
+        self.play(
+            FadeOut(rect_3),
+            ReplacementTransform(equation_4_1, r4_1),
+            ReplacementTransform(equation_4_2, r4_2),
+            ShowCreation(rect_4)
+        )
+
+        self.wait(3)
+
+        r5_1 = TextMobject("$R5: (1.5, 4.3, 7.5)_T$ $I(0.5, 3.6, 5.5)_T$ →")
+        r5_2 = TextMobject("→ ${(1, 0.69), (2, 0.15), (3, 0.15)}$")
+
+        r5_1.scale(0.5)
+        r5_2.scale(0.5)
+
+        r5_1.set_color(BLUE)
+        r5_2.set_color(BLUE) 
+
+        r5_1.next_to(r4_2, DOWN)
+        # r2_2.shift(DOWN)
+        r5_2.next_to(r5_1, DOWN)
+
+        self.play(
+            FadeOut(rect_4),
+            ReplacementTransform(equation_5_1, r5_1),
+            ReplacementTransform(equation_5_2, r5_2),
+            ShowCreation(rect_5)
+        )
+
+        self.wait(3)
+
+        self.play(
+            FadeOut(rect_5)
+
+        )
+
+        self.wait(2)
+
+        dot_to_calculate = Dot(self.coords_to_point(6, 6), color=WHITE, radius=0.15)
+
+        self.play(
+            GrowFromCenter(dot_to_calculate),
+            FocusOn(dot_to_calculate)
+        )
+
+        self.wait(1)
+
+        self.play(
+            ShowCreation(rect_1),  
+            ShowCreation(rect_2),  
+            ShowCreation(rect_3),  
+            ShowCreation(rect_4),
+            ShowCreation(rect_5)
+        )
+
+
+        self.wait(1)
+        self.play(
+            FadeOut(rect_2)
+        )
+
+        self.wait(2)
+
+        self.play(
+            FadeOut(rect_5)
+        )
+
+        self.wait(2)
+
+        self.play(
+            FadeOut(r2_1),  
+            FadeOut(r2_2)
+        )
+
+        self.play(
+            FadeOut(r5_1),  
+            FadeOut(r5_2)
+        )
+
+
+        self.wait(2)
+
+
+        r4_1_old = r4_1
+        r4_2_old = r4_2
+
+        r4_1 = copy.deepcopy(r4_1_old)
+        r4_2 = copy.deepcopy(r4_2_old)
+
+        r4_1.shift(DOWN)
+        r4_2.shift(DOWN)
+
+        self.play(
+            ReplacementTransform(r4_1_old, r4_1),
+            ReplacementTransform(r4_2_old, r4_2),
+        )
+
+
+        self.wait(3)
+
+        fuzzy_activation_function = ImageMobject('fuzzy_activation_function.png')
+        fuzzy_activation_function.stretch_in_place(0.8, 0)
+        fuzzy_activation_function.stretch_in_place(0.8, 1)
+        fuzzy_activation_function.move_to(r4_2, DOWN)
+        fuzzy_activation_function.shift(DOWN * 2.4)
+
+        self.play(
+            FadeIn(fuzzy_activation_function)
+        )
+
+        self.wait(2)
+
+        r1_activation = TextMobject("$v_1(\overline{x}) = min\{ 0.23, 0.62 \} = 0.23 $")
+        r1_activation.scale(0.5)
+        r1_activation.next_to(r1_2, DOWN)
+
+        self.play(
+            ShowCreation(r1_activation)
+        )
+
+        self.wait(2)
+
+        r3_activation = TextMobject("$v_3(\overline{x}) = min\{ 0.83, 0.56 \} = 0.56 $")
+        r3_activation.scale(0.5)
+        r3_activation.set_color(PURPLE)
+        r3_activation.next_to(r3_2, DOWN)
+
+        self.play(
+            ShowCreation(r3_activation)
+        )
+
+        self.wait(2)
+
+        r4_activation = TextMobject("$v_4(\overline{x}) = min\{ 0.19, 0.68 \} = 0.19 $")
+        r4_activation.scale(0.5)
+        r4_activation.set_color(ORANGE)
+        r4_activation.next_to(r4_2, DOWN)
+
+        self.play(
+            ShowCreation(r4_activation)
+        )
+
+        self.wait(2)
+        self.play(
+            FadeOut(fuzzy_activation_function),
+            FadeOut(rect_3),
+            FadeOut(rect_4)
+        )
+
+        self.wait(2)
+        r1_conclusion_1 = TextMobject("$B_1(\overline{x}) = \{ (1, 0.24 * 0.23), (2, 0.53 * 0.23), (3, 0.25 * 0.23) \}$")
+        r1_conclusion_2 = TextMobject("$B_1(\overline{x}) = \{ (1, 0.055), (2, 0.12), (3, 0.58) \}$")
+
+        r1_conclusion_1.scale(0.5)
+        r1_conclusion_2.scale(0.5)
+        
+        r1_conclusion_1.next_to(r1_activation, DOWN)
+        r1_conclusion_2.next_to(r1_activation, DOWN)
+            
+        self.play(ShowCreation(r1_conclusion_1))
+        self.wait(3)
+        self.play(ReplacementTransform(r1_conclusion_1, r1_conclusion_2))
+        
+        self.wait(2)
+
+
+        r3_conclusion_1 = TextMobject("$B_3(\overline{x}) = \{ (1, 0.14 * 0.56), (2, 0.14 * 0.56), (3, 0.71 * 0.56) \}$")
+        r3_conclusion_2 = TextMobject("$B_3(\overline{x}) = \{ (1, 0.055), (2, 0.12), (3, 0.58) \}$")
+
+        r3_conclusion_1.scale(0.5)
+        r3_conclusion_2.scale(0.5)
+        
+        r3_conclusion_1.next_to(r3_activation, DOWN)
+        r3_conclusion_2.next_to(r3_activation, DOWN)
+        
+        r3_conclusion_1.set_color(PURPLE)
+        r3_conclusion_2.set_color(PURPLE)
+
+            
+        self.play(ShowCreation(rect_3))
+        self.play(ShowCreation(r3_conclusion_1))
+        self.wait(3)
+        self.play(ReplacementTransform(r3_conclusion_1, r3_conclusion_2))
+        
+        self.wait(2)
+        r4_conclusion_1 = TextMobject("$B_4(\overline{x}) = \{ (1, 0.23 * 0.19), (2, 0.077 * 0.19), (3, 0.69 * 0.19) \}$")
+        # ${(1, 0.23), (2, 0.077), (3, 0.69)}$")
+        r4_conclusion_2 = TextMobject("$B_4(\overline{x}) = \{ (1, 0.044), (2, 0.15), (3, 0.13) \}$")
+        r4_conclusion_2.set_color(ORANGE)
+
+        r4_conclusion_1.scale(0.5)
+        r4_conclusion_2.scale(0.5)
+        
+        r4_conclusion_1.next_to(r4_activation, DOWN)
+        r4_conclusion_2.next_to(r4_activation, DOWN)
+            
+        self.play(ShowCreation(rect_4))
+        self.play(ShowCreation(r4_conclusion_2))
+        
+
+        self.wait(3)
+
+        result_1 = TextMobject("$B(\overline{x}) = \{(1, 0.055), (2, 0.15), (3, 0.58)\}$")
+        result_2 = TextMobject("$B(\overline{x}) = \{(1, 0.055), (2, 0.15), (3, 0.58)\}$")
+        result_3 = TextMobject("$B\overline{y}(\overline{x}) = 3$")
+
+        result_1.scale(0.5)
+        result_2.scale(0.5)
+
+        result_1.next_to(r4_conclusion_2, DOWN*1.1)
+        result_2.next_to(r4_conclusion_2, DOWN*1.1)
+        result_3.next_to(result_2, DOWN)
+
+        result_2.set_color(YELLOW)
+        result_3.set_color(YELLOW)
+
+        self.play(ShowCreation(result_1))
+        self.wait(1)
+
+        self.play(ShowCreation(result_3))
+        self.wait(1)
+
+        dot_to_calculate_yellow = Dot(self.coords_to_point(6, 6), color=YELLOW, radius=0.15)
+
+
+        self.play(
+            FocusOn(dot_to_calculate)
+        )
+
+        self.play(
+            GrowFromCenter(dot_to_calculate_yellow)
+        )
+
+        self.play(
+            Indicate(dot_to_calculate_yellow)
+        )
+
 
         self.wait(5)
-
-
         return
 
