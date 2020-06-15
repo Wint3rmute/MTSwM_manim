@@ -90,7 +90,9 @@ class Graphing(GraphScene):
         "axes_color": BLUE,
         "x_tick_frequency": 1,
         "y_tick_frequency": 1,
-        "graph_origin": 2.5 * DOWN - 6*RIGHT
+        "graph_origin": 2.5 * DOWN - 6*RIGHT,
+        "x_axis_label": "$x^{(1)}$",
+        "y_axis_label": "$x^{(2)}$",
     }
 
     def get_range_polygon(self, x_1, x_2, y_1, y_2, color=BLUE):
@@ -132,35 +134,87 @@ class Graphing(GraphScene):
         return VGroup(v_lines, h_lines)
 
     def draw_points(self):
+
+        text_class_1 = TextMobject("Klasa 1")
+        text_class_2 = TextMobject("Klasa 2")
+        text_class_3 = TextMobject("Klasa 3")
+
+        text_class_1.scale(0.5)
+        text_class_2.scale(0.5)
+        text_class_3.scale(0.5)
+
+        dot_1 = Dot(color=BLUE)
+        dot_2 = Dot(color=YELLOW)
+        dot_3 = Dot(color=RED)
+
+        text_class_1.next_to(self.grid, DOWN*3.5)
+        text_class_1.shift(LEFT*1.5)
+        dot_1.next_to(text_class_1, RIGHT*0.5)
+
+     
+        text_class_2.next_to(dot_1, RIGHT*1.5)
+        dot_2.next_to(text_class_2, RIGHT*0.5)
+
+     
+        text_class_3.next_to(dot_2, RIGHT*1.5)
+        dot_3.next_to(text_class_3, RIGHT*0.5)
+
+        
         test_points = [
             ShowCreation(Dot(self.coords_to_point(*point), color=BLUE))
             for point in class_1_points
         ]
+
+        test_points.append(
+            ShowCreation(text_class_1)
+        )
+        test_points.append(
+            ShowCreation(dot_1)
+        )
+        
 
         test_points_2 = [
             ShowCreation(Dot(self.coords_to_point(*point), color=YELLOW))
             for point in class_2_points
         ]
 
+        test_points_2.append(
+            ShowCreation(text_class_2)
+        )
+        test_points_2.append(
+            ShowCreation(dot_2)
+        )
+        
+
         test_points_3 = [
             ShowCreation(Dot(self.coords_to_point(*point), color=RED))
             for point in class_3_points
         ]
 
+        test_points_3.append(
+            ShowCreation(text_class_3)
+        )
+        test_points_3.append(
+            ShowCreation(dot_3)
+        )
+        
+
         #self.play(ShowCreation(point), ShowCreation(point2))
-        self.play(*test_points_3)
+        self.play(*test_points)
         self.wait(0.5)
         self.play(*test_points_2)
         self.wait(0.5)
-        self.play(*test_points)
+        self.play(*test_points_3)
         self.wait(0.5)
 
     def construct(self):
+
+        self.wait(1)
         #Make graph
         self.setup_axes(animate=True)
         grid = self.get_grid(self.x_min, self.x_max, self.x_tick_frequency,
                              self.y_min, self.y_max, self.y_tick_frequency)
-
+        self.grid = grid
 
 
         rect_1 = self.get_range_polygon(1.5, 6.5, 4.5, 10.5, WHITE)
@@ -313,6 +367,7 @@ class Graphing(GraphScene):
         self.wait(1)
 
         self.draw_points()
+        # return
 
         self.play(ShowCreation(rect_1), ShowCreation(equation_1))
         self.wait(1)
