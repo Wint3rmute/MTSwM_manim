@@ -37,7 +37,8 @@ class GetMinMax(GraphScene):
         "axes_color": BLUE,
         "x_tick_frequency": 1,
         "y_tick_frequency": 1,
-        "graph_origin": 2.5 * DOWN - 1*RIGHT
+        "graph_origin": - 0.9*RIGHT,
+        "y_axis_label": "",
     }
 
 
@@ -47,10 +48,27 @@ class GetMinMax(GraphScene):
         
         self.wait(2)
 
-        colors = [ RED, BLUE, PURPLE, ORANGE, YELLOW, BLUE, GREEN, WHITE]
+        dot_1 = Dot(self.coords_to_point(-5, 0))
+        dot_2 = Dot(self.coords_to_point(-4, 0))
+        dot_3 = Dot(self.coords_to_point(-2, 0))
+        dot_4 = Dot(self.coords_to_point(-1, 0))
+        dot_5 = Dot(self.coords_to_point(1, 0))
+        dot_6 = Dot(self.coords_to_point(2, 0))
+        dot_7 = Dot(self.coords_to_point(3, 0))
+        dot_8 = Dot(self.coords_to_point(5, 0))
+
+        self.play(ShowCreation(dot_1))
+        self.play(ShowCreation(dot_2))
+        self.play(ShowCreation(dot_3))
+        self.play(ShowCreation(dot_4))
+        self.play(ShowCreation(dot_6))
+        self.play(ShowCreation(dot_7))
+        self.play(ShowCreation(dot_8))
 
         dot_min = Dot(self.coords_to_point(-5, 0))
         dot_max = Dot(self.coords_to_point(5, 0))
+
+        self.wait(2)
         
         text_min = TextMobject("$x_{min}$")
         text_max = TextMobject("$x_{max}$")
@@ -58,9 +76,11 @@ class GetMinMax(GraphScene):
         text_min.next_to(dot_min, DOWN)
         text_max.next_to(dot_max, DOWN)
 
-        self.play(ShowCreation(dot_min), ShowCreation(text_min))
+        self.play(Indicate(dot_1), ShowCreation(text_min))
         self.wait(1)
-        self.play(ShowCreation(dot_max), ShowCreation(text_max))
+        self.play(Indicate(dot_8), ShowCreation(text_max))
+
+        self.wait(4)
         
 
 class HowManyDivisions(GraphScene):
@@ -117,8 +137,8 @@ class HowManyDivisions(GraphScene):
 
         colors = [ RED, BLUE, PURPLE, ORANGE, YELLOW, BLUE, GREEN, WHITE]
 
-        dot_min = Dot(self.coords_to_point(-5, 0))
-        dot_max = Dot(self.coords_to_point(5, 0))
+        dot_min = Dot(self.coords_to_point(-3, 0))
+        dot_max = Dot(self.coords_to_point(3, 0))
         
         text_min = TextMobject("$x_{min}$")
         text_max = TextMobject("$x_{max}$")
@@ -145,32 +165,38 @@ class HowManyDivisions(GraphScene):
         self.play( *[FadeOut(line) for line in lines] )
 
         lines = []
-        for i in range(-5, 4, 1):
+        for i in range(-4, 3, 1):
             l1, l2 = self.get_fuzzy_number(i,i+1,i+2, color=colors[(i+5) % 8])
             self.play(ShowCreation(l1)) 
             self.play(ShowCreation(l2))
             lines.append(l1)
             lines.append(l2)
 
-        self.wait(1)
-        self.play( *[FadeOut(line) for line in lines] )
+        self.wait(2)
+        ##self.play( *[FadeOut(line) for line in lines] )
 
+        num_of_cechy = TextMobject('$k$ - liczba cech, $L_i$ - liczba zbiorów pokrywających $i$-tą cechę')
+        num_of_cechy.scale(0.6)
+        num_of_cechy.shift(UP * 3)
         
         l_1 = TextMobject('$L_1$')
 
-        l_1.shift(LEFT * 4 + UP * 2)
+        l_1.shift(LEFT * 6 + UP * 2)
         l_2 = TextMobject('$*$ $L_2$')
-        l_3 = TextMobject('$*$ $L_3$ $*$ $...$ * $L_n$')
+        l_3 = TextMobject('$*$ $L_3$ $*$ $...$ * $L_k$')
         l_2.next_to(l_1, RIGHT)
         l_3.next_to(l_2, RIGHT)
 
-        self.play(ShowCreation(l_1))
+        self.play(ShowCreation(num_of_cechy))
         self.wait(4)
+        self.play(ShowCreation(l_1))
+        self.wait(3)
         self.play(ShowCreation(l_2))
         self.wait(2)
         self.play(ShowCreation(l_3))
+        self.wait(2)
 
-        less_than = TextMobject('$< N$')
+        less_than = TextMobject('$< N $ ← Liczba obiektów uczących')
         less_than.next_to(l_3, RIGHT)
         self.play(ShowCreation(less_than))
 
@@ -214,7 +240,7 @@ class HowManyRules(GraphScene):
                              self.y_min, self.y_max, self.y_tick_frequency)
 
 
-        self.play( ShowCreation(grid))
+        self.play(ShowCreation(grid))
 
         self.wait(1)
 
@@ -238,8 +264,8 @@ class HowManyRules(GraphScene):
         dots = []
         counter = 0
         for point in points:
-            dots.append(Dot(point, color=colors[counter]))
-            dots.append(Dot(point, color=colors[counter]))
+            dots.append(Dot(point, color=colors[counter], radius=0.12))
+            dots.append(Dot(point, color=colors[counter], radius=0.12))
             counter += 1
         
 
