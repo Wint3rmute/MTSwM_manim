@@ -169,6 +169,7 @@ class Graphing(GraphScene):
         rect_4 = self.get_range_polygon(5.5, 10.5, 3.5, 7.5, ORANGE)
         rect_5 = self.get_range_polygon(1.5, 7.5, 0.5, 5.5)
         
+        
         equation_1 = TextMobject(
             "$R1: A^{(1)}_{supp,1} = (1.5, 6.5), A^{2}_{supp,1} = (4.5, 10.5)$"
         )
